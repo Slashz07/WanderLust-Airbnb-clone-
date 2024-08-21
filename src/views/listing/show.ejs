@@ -1,0 +1,125 @@
+<% layout("./layout/boilerPlate.ejs") 
+%>
+<script>
+    const mapBoxToken="<%=process.env.MAP_TOKEN%>"
+    const listing=<%-JSON.stringify(infoObj)%>//When embedding JavaScript objects into HTML, you need to convert the object into a format that JavaScript can understand. JSON.stringify creates a string representation of the object that can be safely embedded into your HTML as JavaScript code.
+
+    // If data is an object and you use %- data %>, EJS will try to render it as HTML, which is not valid. It doesn’t automatically convert the object to a string format suitable for JavaScript.
+</script>
+<div class="container ">
+    <div class="row">
+        <div class="col-10 offset-3 mb-3">
+            <h3><%=infoObj.title%> </h3>
+        </div>
+        <div class="card col-6 listing-card" style="margin: auto;">
+            <img src="<%=infoObj.image.url%>" class="card-img-top show-img mb-3" alt="...">
+            <div class="card-body">
+                <p class="card-text">
+                    <span class="d-block mb-2"><b>Owner:</b> <%=infoObj.owner.username%></span>
+                    <%=infoObj.description%> <br>
+                    <span class="d-block mb-2 mt-2">&#8377; <%=infoObj.price.toLocaleString("en-IN")%></span>
+                    <span class="d-block mb-2"><%=infoObj.location%></span>
+                    <span class="d-block mb-2"><%=infoObj.country%></span>
+                </p>
+                  
+            </div>
+        </div>
+        
+    </div>
+
+    <%if(loggedUser && loggedUser._id.equals(infoObj.owner._id)){
+        %>
+        <div class="btns mb-5">
+            <a href="/listing/<%=infoObj._id%>/edit" class="btn btn-dark offset-3 mt-3">Edit</a>
+            <form action="/listing/<%=infoObj._id%>/delete?_method=DELETE" method="post">
+                <button class="btnDel btn btn-dark offset-3 mt-3 ">Delete</button>
+            </form>
+        </div>
+        <%
+    }%>
+    
+ <hr>
+    <div class="col-8 offset-3  mt-3 mb-5" >
+        <%
+        if(loggedUser){
+            %>
+                <h3>Leave a Review</h3>
+                <form action="/listing/<%=infoObj._id%>/reviews" novalidate class="needs-validation" method="post">
+                    <div class="mt-3 mb-3">
+                        <label for="rating" class="form-label">Rating</label>
+                        <input type="range" name="rating" class="form-range" min="1" max="5" id="ratingRange         required" oninput="highlightEmoji(this.value)">
+                        <div class="d-flex justify-content-between mt-2" id="emojiContainer">
+                            <span class="emoji" data-value="1" >&#x1F622;</span>
+                            <span class="emoji" data-value="2" >&#x1F61F;</span>
+                            <span class="emoji" data-value="3" >&#x1F610;</span>
+                            <span class="emoji" data-value="4" >&#x1F60A;</span>
+                            <span class="emoji" data-value="5" >&#x1F604;</span>
+                        </div>
+                    </div>
+                    <div class="mt-3 mb-3">
+                        <label for="comment" class="form-label">Comment</label>
+                        <textarea name="comment" id="comment" class="form-control" cols="30" rows="5" required></textarea>
+                        <div class="invalid-feedback">
+                            Please write a comment
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-light newBtn">Post</button>
+                </form>
+                
+            <%
+        }else{
+            %>
+            <h5 class="m-4">Want to add a review?? <a href="/user/login" style="text-decoration: none; color: unset;"><b>Log in</b></a></h5>
+            <%
+        }
+        %>
+    </div>
+    <%
+    if(!(loggedUser)){
+        %>
+        <hr>
+        <%
+    }
+    %>
+    <div class="row">
+            <%
+               infoObj.reviews.forEach( review => {
+                  let createdAt=new Date(review.createdAt) 
+                  const date=createdAt
+                    %>
+                        <div class="card col-5 ms-5 mb-3 m-2 p-3">
+                              <div class="card-body ">
+                                    <h5 class="card-title"><%=review.author.username%></h5>
+                                    <div class="mb-3 ">
+                                      <p class="card-text"></p>
+                                      <p class="starability-result " data-rating="<%=review.rating%>"></p>
+                                    </div>
+                                    <div class="mb-3 row">
+                                      <p class="card-text  col-8"><%=date%></p>
+                                    </div>
+                                    <div class="mb-3">
+                                      <p class="card-text"><%=review.comment%></p>
+                                    </div>
+                                </div>
+                                <%if(loggedUser && loggedUser._id.equals(review.author._id)){
+                                     %>
+                                        <form action="/listing/<%=infoObj._id%>/reviews/<%=review._id%>?_method=DELETE" method="post">
+                                            <button class="btn btn-dark newBtn">Delete</button>
+                                        </form>
+                                    <%
+                                }%>
+                        </div>
+
+                    <%
+                });
+            %>
+
+        
+    </div>
+    <div class="col-8 offset-3  mt-3" >
+    <h3>Where you'll be</h3>
+    <div id="map"></div>    
+    </div>
+
+</div>
+<script src="/js/map.js"></script>

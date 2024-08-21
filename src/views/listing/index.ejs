@@ -1,0 +1,121 @@
+<%layout("./layout/boilerPlate.ejs")%>
+
+<body>
+    <div id="filters" class="d-flex flex-wrap justify-content-between">
+        <div id="filters" class="d-flex flex-wrap " style="gap: 1.5rem;">
+            <div class="filter">
+                <a href="/listing/category/trending">
+                    <div><i class="fa-solid fa-fire"></i></div>
+                    <p>Trending</p>
+                </a>
+            </div>
+            <div class="filter">
+                <a href="/listing/category/rooms">
+                    <div><i class="fa-solid fa-bed"></i></div>
+                    <p>Rooms</p>
+                </a>
+            </div>
+            <div class="filter">
+                <a href="/listing/category/iconicCities">
+                    <div><i class="fa-solid fa-mountain-city"></i></div>
+                    <p>Iconic cities</p>
+                </a>
+            </div>
+            <div class="filter">
+                <a href="/listing/category/mountains">
+                    <div><i class="fa-solid fa-mountain"></i></div>
+                    <p>Mountains</p>
+                </a>
+            </div>
+            <div class="filter">
+                <a href="/listing/category/castles">
+                    <div><i class="fa-solid fa-archway"></i></div>
+                    <p>Castles</p>
+                </a>
+            </div>
+            <div class="filter">
+                <a href="/listing/category/pools">
+                    <div><i class="fa-solid fa-person-swimming"></i></div>
+                    <p>Amazing Pools</p>
+                </a>
+            </div>
+            <div class="filter">
+                <a href="/listing/category/camping">
+                    <div><i class="fa-solid fa-tent"></i></div>
+                    <p>Camping</p>
+                </a>
+            </div>
+            <div class="filter">
+                <a href="/listing/category/beach">
+                    <div><i class="fa-solid fa-umbrella-beach"></i></div>
+                    <p>Beach</p>
+                </a>
+            </div>
+            <div class="filter">
+                <a href="/listing/category/boats">
+                    <div><i class="fa-solid fa-sailboat"></i></div>
+                    <p>Boats</p>
+                </a>
+            </div>
+            <div class="filter">
+                <a href="/listing/category/tropical">
+                    <div><i class="fa-solid fa-tree"></i></div>
+                    <p>Tropical</p>
+                </a>
+            </div>
+            <div class="filter">
+                <a href="/listing/category/arctic">
+                    <div><i class="fa-regular fa-snowflake"></i></div>
+                    <p>Arctic</p>
+                </a>
+            </div>
+        </div>
+        
+        <div class="tax-toggle border bg-light d-flex align-items-center" style="border-radius: 10rem;  ">
+            <div class="form-check form-switch d-flex align-items-center" style="padding: 0 2rem 0 3rem;" >
+                <input class="form-check-input" style="cursor: pointer;" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                <label class="form-check-label ms-2"  style="cursor: pointer;"  for="flexSwitchCheckDefault">Price after taxes</label>
+            </div>
+        </div>
+        
+    </div>
+    
+    <div class=" row row-cols-lg-3 row row-cols-md-2 row row-cols-sm-1 " style="width: 85vw; "><!--here row-cols-lg-3 ensures atleast three columns are shown in each row otherwise all the columns try to fir in single row-->
+        <%
+          props.forEach(prop => {
+            %>
+            <a class="card-link" href="/listing/<%-prop._id%>">
+                  <div class="card col listing-card" style="width: 23rem;">
+                           <img src="<%=prop.image.url%>" class="card-img-top" alt="Listing_image" style="height: 20rem;">
+                           <div class="card-img-overlay"></div>
+                           <div class="card-body">
+                               <p class="card-text">
+                                   <b><%=prop.title%></b>
+                                   <br>
+                                   &#8377; <%=prop.price.toLocaleString("en-IN")%>/night
+                                   <i class="taxAmt" style="display: none;">&nbsp;&nbsp;+18% GST</i>
+                               </p>
+                           </div>
+                  </div>
+                </a>
+            <%});
+        %>
+    </div>
+
+</body>
+
+<script>
+const switchBtn=document.getElementById("flexSwitchCheckDefault")    
+const taxInfo=document.getElementsByClassName("taxAmt")    
+switchBtn.addEventListener("click",function(e){
+    Array.from(taxInfo).map((listingTax)=>{
+        if(listingTax.style.display=="none"){
+            listingTax.style.display="inline-block"
+        }else{
+            listingTax.style.display="none"
+        }
+    })
+
+})
+    
+</script>

@@ -1,0 +1,76 @@
+<%layout("./layout/boilerPlate.ejs")%>
+
+
+<div class="row offset-2 mt-3 mb-5">
+    <div class="col-8">
+        <h3>Edit your Listing</h3>
+        <form action="/listing/<%=propInfo._id%>?_method=PATCH" enctype="multipart/form-data" novalidate class="needs-validation" method="post">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" value="<%=propInfo.title%>"  class="form-control" name="title"  id="" required>
+                    <div class="invalid-feedback">
+                        Invalid title
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea name="description" class="form-control" id=""><%=propInfo.description%></textarea required>
+                    <div class="invalid-feedback">
+                        Invalid description
+                    </div>
+                </div>
+                <div class="mb-3">
+                    Current Image <br>
+                    <img src="<%=imgPreview%>" alt="previewImage">
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image</label>
+                    <input type="file"   class="form-control"  name="image" id="image" >
+                    <div class="invalid-feedback">
+                        Invalid Image 
+                    </div>
+                </div>
+                <div class="mb-3 form-label" >
+                    <label for="category" class="form-label">Category</label>
+                    <select class="form-select" name="category" id="category">
+                        <option selected disabled>Select a category</option>
+                        <option value="rooms">Rooms</option>
+                        <option value="iconicCities">Iconic Cities</option>
+                        <option value="mountains">Mountains</option>
+                        <option value="castles">Castles</option>
+                        <option value="pools">Pools</option>
+                        <option value="camping">Camping</option>
+                        <option value="beach">Beach</option>
+                        <option value="boats">Boats</option>
+                        <option value="tropical">Tropical</option>
+                        <option value="arctic">Arctic</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-md-4">
+                        <label for="price" class="form-label">price</label><br>
+                        <div class="d-flex align-items-center gap-1">
+                          <span>&#8377;</span><input type="text" class="form-control" value="<%=propInfo.price.toLocaleString("en-IN")%>"  name="price" id="" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 col-md-8">
+                        <label for="country" class="form-label">country</label>
+                        <input type="text" value="<%=propInfo.country%>"  name="country" class="form-control" id="" required>
+                        <div class="invalid-feedback">
+                            Invalid country name
+                        </div>
+                    </div>
+                </div>
+              
+                <div class="mb-3">
+                    <label for="location" class="form-label">location</label>
+                    <input type="text" value="<%=propInfo.location%>" class="form-control" name="location"  id="" required>
+                    <div class="invalid-feedback">
+                        Invalid location
+                    </div>
+                </div>
+                        <button class="btn btn-dark newBtn">Update</button>
+            </form>
+    </div>
+</div>
