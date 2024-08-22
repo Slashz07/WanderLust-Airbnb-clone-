@@ -33,7 +33,7 @@ const getCategorisedListings=wrapper(async(req,res)=>{
     const categorisedListings=await Listing.find({category:type})
     if(!categorisedListings.length){
         req.flash("success",`No Current listing is categorised in ${type}`)
-        res.redirect(`/listing`)
+        return res.redirect(`/listing`)
     }else{
         res.render(`./listing/index.ejs`,{props:categorisedListings})
     }
@@ -197,12 +197,21 @@ const saveUpdates=wrapper(async (req,res)=>{
 
 const getListingInfo=wrapper(async(req,res)=>{
     const {id}=req.params
-    const propertyInfo=await Listing.findById(id).
-    populate({path:"reviews",
+    const info=await Listing.findById(id)
+    console.log(info)
+    const propertyInfo=await Listing.findById(id).populate({path:"reviews",
         populate:{
             path:"author"
         }
     }).populate("owner")
+    
+    // .populate({path:"reviews",
+    //     populate:{
+    //         path:"author"
+    //     }
+    // }).populate("owner")
+    console.log(propertyInfo)
+
     if(propertyInfo){
         res.render("./listing/show.ejs",{infoObj:propertyInfo})
     }else{

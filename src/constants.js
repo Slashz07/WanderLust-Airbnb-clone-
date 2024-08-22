@@ -1,1 +1,1 @@
-export const db_name="airBnb"
+export const db_name="test"
