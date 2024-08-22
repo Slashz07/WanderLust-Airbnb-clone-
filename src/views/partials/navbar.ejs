@@ -4,11 +4,11 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse bg-white" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
+      <div class="collapse navbar-collapse bg-white toggleNav" id="navbarNavAltMarkup">
+        <div class="navbar-nav collapseNavElem">
           <a class="nav-link" href="/listing">Explore</a>
         </div>
-        <div class="navbar-nav ms-auto">
+        <div class="navbar-nav ms-auto collapseNavElem">
           <form action="/listing/search" method="post" class="d-flex" role="search">
             <input class="form-control me-2 input-search" name="search" type="search" placeholder="Search  destinations" aria-label="Search">
             <button class="btn btn-search" type="submit">
@@ -16,16 +16,16 @@
             </button>
           </form>
         </div>
-        <div class="navbar-nav ms-auto">
-          <a class="nav-link" href="/listing/new">AirBnb your home</a>
+        <div class="navbar-nav ms-auto ">
+          <a class="nav-link collapseNavElem" href="/listing/new">AirBnb your home</a>
           <%if(loggedUser)
           {
-            %><a class="nav-link" href="/user/logout">Log Out</a><%
+            %><a class="nav-link collapseNavElem" href="/user/logout">Log Out</a><%
           }
             else{
               %>
-              <a class="nav-link " aria-current="page" href="/user/signup"><b>SignUp</b></a>
-              <a class="nav-link" href="/user/login"><b>Log In</b></a>
+              <a class="nav-link collapseNavElem" aria-current="page" href="/user/signup"><b>SignUp</b></a>
+              <a class="nav-link collapseNavElem" href="/user/login"><b>Log In</b></a>
               <%
             }
           %>

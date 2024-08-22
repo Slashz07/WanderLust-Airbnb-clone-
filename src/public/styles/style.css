@@ -61,6 +61,7 @@ body{
     text-decoration: none;
     color: unset;
     display: inline-block;
+    padding: 2px;
 }
 
 .listing-card{
@@ -192,4 +193,42 @@ body{
 .input-search{
     border-radius: 25px;
     padding: 0.5rem 3rem 0.5rem 1rem;
+}
+
+.mapCard{
+    margin: auto;
+    margin-top: 2rem;
+}
+#map{
+    border-radius: 30px;
+    margin-top: 2rem;
+
+}
+
+
+@media (max-width: 767px) {
+    #map{
+        min-width: 15rem;
+        max-height: 20rem;
+    }
+
+    .container {
+        margin-right: 12rem;
+    }
+
+    .listing-card {
+        max-width: 100% !important;
+        min-width: 100% !important;
+        margin: 0 auto; /* Ensures the card is centered */
+        margin-top: 2rem;
+    }
+
+    .card-link {
+        padding: 0; /* Removes any padding around the card link */
+    }
+
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
 }

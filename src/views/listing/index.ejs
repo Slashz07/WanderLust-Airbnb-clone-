@@ -79,28 +79,29 @@
         </div>
         
     </div>
-    
-    <div class=" row row-cols-lg-3 row row-cols-md-2 row row-cols-sm-1 " style="width: 85vw; "><!--here row-cols-lg-3 ensures atleast three columns are shown in each row otherwise all the columns try to fir in single row-->
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 text-center" style="width: 85vw;">
         <%
           props.forEach(prop => {
-            %>
-            <a class="card-link" href="/listing/<%-prop._id%>">
-                  <div class="card col listing-card" style="width: 23rem;">
-                           <img src="<%=prop.image.url%>" class="card-img-top" alt="Listing_image" style="height: 20rem;">
-                           <div class="card-img-overlay"></div>
-                           <div class="card-body">
-                               <p class="card-text">
-                                   <b><%=prop.title%></b>
-                                   <br>
-                                   &#8377; <%=prop.price.toLocaleString("en-IN")%>/night
-                                   <i class="taxAmt" style="display: none;">&nbsp;&nbsp;+18% GST</i>
-                               </p>
-                           </div>
-                  </div>
-                </a>
-            <%});
+        %>
+        <a class="card-link" href="/listing/<%-prop._id%>" >
+            <div class="card col listing-card" >
+                <img src="<%=prop.image.url%>" class="card-img-top" alt="Listing_image" style="height: 20rem;">
+                <div class="card-img-overlay"></div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <b><%=prop.title%></b>
+                        <br>
+                        &#8377; <%=prop.price.toLocaleString("en-IN")%>/night
+                        <i class="taxAmt" style="display: none;">&nbsp;&nbsp;+18% GST</i>
+                    </p>
+                </div>
+            </div>
+        </a>
+        <%
+          });
         %>
     </div>
+    
 
 </body>
 
