@@ -205,12 +205,6 @@ const getListingInfo=wrapper(async(req,res)=>{
         }
     }).populate("owner")
     
-    // .populate({path:"reviews",
-    //     populate:{
-    //         path:"author"
-    //     }
-    // }).populate("owner")
-    console.log(propertyInfo)
 
     if(propertyInfo){
         res.render("./listing/show.ejs",{infoObj:propertyInfo})
